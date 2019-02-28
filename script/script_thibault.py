@@ -42,3 +42,40 @@ def score_two_list(l1,l2) :
     num_uni_1=size_not_in(l1,l2)
     num_uni_2=size_not_in(l2,l1)
     return min(num_intersec,num_uni_1,num_uni_2)
+
+def greedy_method(data):
+    num_photo = data[0]
+    dict_photo = data[1].copy()
+    result = []
+    slide_before = ""
+    score_total = 0
+    i = 0
+    while len(dict_photo) > 0 and i<num_photo+1:
+        i = i + 1
+        if i%100==0:
+            print(i)
+        min_score = 0
+        if slide_before == "":
+            slide_before = dict_photo[0]
+            result.append(slide_before)
+            del dict_photo[0]
+        else:
+            slide_before = slide_after.copy()
+            result.append(slide_after)
+        max_theorique = int(float(slide_before["num_tag"]) / 3.0)
+
+        for elt in dict_photo:
+            slide_tmp = dict_photo[elt].copy()
+            tmp_score = score_two_list(slide_before["list_tag"], slide_tmp["list_tag"])
+            if tmp_score >= min_score:
+                slide_after = slide_tmp.copy()
+                min_score = tmp_score
+                id_supr = elt
+            if min_score == max_theorique:
+                break
+        score_total = score_total + min_score
+        del dict_photo[id_supr]
+
+    result.append(slide_after)
+    print(score_total)
+    return result
