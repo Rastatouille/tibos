@@ -25,8 +25,8 @@ def parsing(file_name) :
 
 #data=parsing("a_example.txt")
 
-#data=parsing("b_lovely_landscapes.txt")
-data=parsing("c_memorable_moments.txt")
+data=parsing("b_lovely_landscapes.txt")
+#data=parsing("c_memorable_moments.txt")
 #data=parsing("d_pet_pictures.txt")
 #data=parsing("e_shiny_selfies.txt")
 
@@ -118,4 +118,17 @@ def greedy_method(data):
     print(score_total)
     return result
 
-print(doublets(data))
+def out_result(result):
+    print(len(result))
+    for elt in result :
+        print(" ".join([str(x) for x in elt["id"]]))
+
+#print(greedy_method(data))
+
+def out_result_file(result,file_out):
+    with open(file_out,"w") as f :
+        f.write(str(len(result))+"\n")
+        for elt in result :
+            f.write(" ".join([str(x) for x in elt["id"]])+"\n")
+
+out_result_file(greedy_method(data),"premB")
