@@ -17,7 +17,7 @@ def parsing(file_name) :
                 # dict_line={}
                 dict_line["h_or_v"] = h_or_v
                 dict_line["num_tag"] = num_tag
-                dict_line["list_tag"] = list_tag
+                dict_line["list_tag"] = sorted(list_tag)
                 tab_global.append(dict_line)
 
     data = (num_line, tab_global)
