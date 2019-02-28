@@ -79,3 +79,8 @@ def greedy_method(data,tolerance):
     result.append(slide_after)
     print(score_total)
     return result
+
+def out_result(result):
+    print(len(result))
+    for elt in result :
+        print(" ".join([str(x) for x in elt["id"]]))
