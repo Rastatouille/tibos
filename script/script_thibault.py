@@ -43,7 +43,7 @@ def score_two_list(l1,l2) :
     num_uni_2=size_not_in(l2,l1)
     return min(num_intersec,num_uni_1,num_uni_2)
 
-def greedy_method(data):
+def greedy_method(data,tolerance):
     num_photo = data[0]
     dict_photo = data[1].copy()
     result = []
@@ -71,7 +71,7 @@ def greedy_method(data):
                 slide_after = slide_tmp.copy()
                 min_score = tmp_score
                 id_supr = elt
-            if min_score == max_theorique:
+            if min_score == max_theorique/tolerance:
                 break
         score_total = score_total + min_score
         del dict_photo[id_supr]
