@@ -72,6 +72,9 @@ def greedy_method(data,tolerance):
                 min_score = tmp_score
                 id_supr = elt
             if min_score == max_theorique/tolerance:
+                slide_after = slide_tmp.copy()
+                min_score = tmp_score
+                id_supr = elt
                 break
         score_total = score_total + min_score
         del dict_photo[id_supr]
@@ -84,3 +87,52 @@ def out_result(result):
     print(len(result))
     for elt in result :
         print(" ".join([str(x) for x in elt["id"]]))
+
+
+def listVert(data):
+    ret=[]
+    for x in data[1]:
+        if data[1][x]["h_or_v"]=="V":
+           ret.append(data[1][x]["id"][0])
+    return ret
+
+
+
+
+
+def listVert(data):
+    ret=[]
+    for x in data[1]:
+        if data[1][x]["h_or_v"]=="V":
+           ret.append(data[1][x]["id"][0])
+    return ret
+
+
+"""renvoie liste doublets (id,numtag)"""
+def taillesV(data):
+    list=listVert(data)
+    tailles=[]
+    for x in list:
+        tailles.append((x,(int(data[1][x]["num_tag"]))))
+    return tailles
+
+def sortedV(data):
+    li=taillesV(data)
+    return sorted(li, key=lambda student: student[1])
+
+
+def doublets(data):
+    ret=[]
+    li=sortedV(data)
+    while len(li)>1:
+        ret.append((li[0][0],li[-1][0]))
+        li=li[1:-2]
+    return ret
+
+
+
+def out_result_file(result,file_out):
+    with open(file_out,"w") as f :
+        f.write(str(len(result))+"\n")
+        for elt in result :
+            f.write(" ".join([str(x) for x in elt["id"]])+"\n")
