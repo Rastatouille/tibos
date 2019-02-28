@@ -56,7 +56,7 @@ def doublets(data):
     li=sortedV(data)
     while len(li)>1:
         ret.append((li[0][0],li[-1][0]))
-        li=li[1:-2]
+        li=li[1:-1]
     return ret
 
 
@@ -118,4 +118,19 @@ def greedy_method(data):
     print(score_total)
     return result
 
-print(doublets(data))
+def out_result(result):
+    print(len(result))
+    for elt in result :
+        print(" ".join([str(x) for x in elt["id"]]))
+
+#print(greedy_method(data))
+
+def out_result_file(result,file_out):
+    with open(file_out,"w") as f :
+        f.write(str(len(result))+"\n")
+        for elt in result :
+            f.write(" ".join([str(x) for x in elt["id"]])+"\n")
+
+#out_result_file(greedy_method(data),"premB")
+print(len(doublets(data)))
+print(len(listVert(data)))
