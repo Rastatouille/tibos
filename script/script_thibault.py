@@ -14,6 +14,7 @@ def parsing(file_name) :
                 num_tag = tab_line[1]
                 list_tag = tab_line[2:]
                 dict_line[i - 1] = {}
+                dict_line[i - 1]["id"] = [i - 1]
                 dict_line[i - 1]["h_or_v"] = h_or_v
                 dict_line[i - 1]["num_tag"] = num_tag
                 dict_line[i - 1]["list_tag"] = sorted(list_tag)
@@ -23,3 +24,9 @@ def parsing(file_name) :
 
 def found_max_tag(data) :
     return max([x['num_tag'] for x in data[1]])
+
+def inter_not_in(l1,l2):
+    return list(set(l1)-set(l2))
+
+def size_not_in(l1,l2):
+    return len(inter_not_in(l1,l2))
