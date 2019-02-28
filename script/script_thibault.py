@@ -50,15 +50,16 @@ def greedy_method(data,tolerance):
     slide_before = ""
     score_total = 0
     i = 0
+    first_element = list(data[1])[0]
     while len(dict_photo) > 0 and i<num_photo+1:
         i = i + 1
         if i%100==0:
             print(i)
         min_score = 0
         if slide_before == "":
-            slide_before = dict_photo[0]
+            slide_before = dict_photo[first_element]
             result.append(slide_before)
-            del dict_photo[0]
+            del dict_photo[first_element]
         else:
             slide_before = slide_after.copy()
             result.append(slide_after)
