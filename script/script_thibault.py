@@ -15,6 +15,7 @@ def parsing(file_name) :
                 num_tag = tab_line[1]
                 list_tag = tab_line[2:]
                 # dict_line={}
+                dict_line["id"] = i - 1
                 dict_line["h_or_v"] = h_or_v
                 dict_line["num_tag"] = num_tag
                 dict_line["list_tag"] = sorted(list_tag)
