@@ -72,7 +72,7 @@ def greedy_method(data,tolerance):
                 slide_after = slide_tmp.copy()
                 min_score = tmp_score
                 id_supr = elt
-            if min_score == max_theorique/tolerance:
+            if min_score >= max_theorique/tolerance:
                 slide_after = slide_tmp.copy()
                 min_score = tmp_score
                 id_supr = elt
@@ -96,18 +96,6 @@ def listVert(data):
         if data[1][x]["h_or_v"]=="V":
            ret.append(data[1][x]["id"][0])
     return ret
-
-
-
-
-
-def listVert(data):
-    ret=[]
-    for x in data[1]:
-        if data[1][x]["h_or_v"]=="V":
-           ret.append(data[1][x]["id"][0])
-    return ret
-
 
 """renvoie liste doublets (id,numtag)"""
 def taillesV(data):
@@ -159,3 +147,58 @@ def concat_v(data,list_v) :
 
     data_finale = (len(data_finale), data_finale)
     return data_finale
+
+def doublet_thib(data) :
+    sub_data=[data[1][x] for x in data[1] if data[1][x]["h_or_v"]=="V"]
+    tab_sorted=sorted([(x["num_tag"],x["id"][0]) for x in sub_data])
+    tab_id=[x[1] for x in tab_sorted]
+    tab_result=[]
+    for i in range(0,len(tab_id),2) :
+        tab_result.append((tab_id[i],tab_id[i+1]))
+    return tab_result
+
+def doublet_thib_long(data) :
+    sub_data=[(data[1][x]["id"][0],data[1][x]) for x in data[1] if data[1][x]["h_or_v"]=="V"]
+    #print(sub_data)
+    #tab_sorted=sorted([(x["id"],x) for x in sub_data])
+    dict_v=dict(sub_data)
+    i=0
+    slide_before=""
+    first_element=list(dict_v)[0]
+    score_total=0
+    result=[]
+    while len(dict_v)> 0 :
+        i=i+1
+        if i%1000==0 :# and i<2000:
+            print(i)
+        min_score=0
+        if slide_before=="" :
+            slide_before=dict_v[first_element]
+            result.append(slide_before)
+            del dict_v[first_element]
+        else :
+            slide_before=slide_after.copy()
+            result.append(slide_after)
+        max_theorique=int(float(slide_before["num_tag"])/ 3.0)
+
+        for elt in dict_v :
+            slide_tmp=dict_v[elt].copy()
+            tmp_score=tailleInter(slide_before["list_tag"],slide_tmp["list_tag"])
+            if tmp_score>= min_score :
+                slide_after=slide_tmp.copy()
+                min_score=tmp_score
+                id_supr=elt
+            if min_score==0 :
+                slide_after=slide_tmp.copy()
+                min_score=tmp_score
+                id_supr=elt
+                break
+        score_total=score_total+min_score
+        print(score_total)
+        del dict_v[id_supr]
+    result.append(slide_after)
+    result_tmp=[x["id"][0] for x in result]
+    tab_result=[]
+    for i in range(0,len(result_tmp),2) :
+        tab_result.append((result_tmp[i],result_tmp[i+1]))
+    return tab_result
