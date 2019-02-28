@@ -126,7 +126,7 @@ def doublets(data):
     li=sortedV(data)
     while len(li)>1:
         ret.append((li[0][0],li[-1][0]))
-        li=li[1:-2]
+        li=li[1:-1]
     return ret
 
 
@@ -136,3 +136,25 @@ def out_result_file(result,file_out):
         f.write(str(len(result))+"\n")
         for elt in result :
             f.write(" ".join([str(x) for x in elt["id"]])+"\n")
+
+
+def concat_v(data,list_v) :
+    data_finale = {}
+    print(len([data[1][x] for x in data[1] if data[1][x]["h_or_v"] == "V"]))
+    print(len(list_v))
+    for i, (id1, id2) in enumerate(list_v):
+        list_common = sorted(list(set(data[1][id1]["list_tag"]).union(set(data[1][id2]["list_tag"]))))
+        data_finale[id1] = {}
+        data_finale[id1]["id"] = [id1, id2]
+        data_finale[id1]["h_or_v"] = "H"
+        data_finale[id1]["num_tag"] = len(list_common)
+        data_finale[id1]["list_tag"] = list_common
+
+    list_h = [data[1][x] for x in data[1] if data[1][x]["h_or_v"] == "H"]
+    print(len(list_h))
+    for elt in list_h:
+        id2 = elt["id"][0]
+        data_finale[id2] = elt
+
+    data_finale = (len(data_finale), data_finale)
+    return data_finale
