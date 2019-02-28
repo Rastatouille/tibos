@@ -3,6 +3,7 @@ for x in test:
     print(x)
 print("hjkh")
 print(len(test))
+print(test[1:-1])
 
 def score(dicP,n,res):
     i=0
