@@ -194,7 +194,7 @@ def doublet_thib_long(data) :
                 id_supr=elt
                 break
         score_total=score_total+min_score
-        print(score_total)
+        #print(score_total)
         del dict_v[id_supr]
     result.append(slide_after)
     result_tmp=[x["id"][0] for x in result]
