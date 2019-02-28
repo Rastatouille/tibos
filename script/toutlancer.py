@@ -1,3 +1,4 @@
+import random
 def parsing(file_name) :
     path_in = "../data/in/"
 
@@ -24,8 +25,8 @@ def parsing(file_name) :
 
 #data=parsing("a_example.txt")
 
-#data=parsing("b_lovely_landscapes.txt")
-data=parsing("c_memorable_moments.txt")
+data=parsing("b_lovely_landscapes.txt")
+#data=parsing("c_memorable_moments.txt")
 #data=parsing("d_pet_pictures.txt")
 #data=parsing("e_shiny_selfies.txt")
 
@@ -56,5 +57,62 @@ def doublets(data):
         ret.append((li[0],li[-1]))
         li=li[1:-2]
     return ret
+def found_max_tag(data) :
+    return max([x['num_tag'] for x in data[1]])
 
-print(doublets(data))
+def inter_not_in(l1,l2):
+    return list(set(l1)-set(l2))
+
+def size_not_in(l1,l2):
+    return len(inter_not_in(l1,l2))
+
+def inter(l1,l2):
+    return sorted(list(set(l1) & set(l2)))
+
+def tailleInter(l1,l2):
+    return len(inter(l1,l2))
+
+def score_two_list(l1,l2) :
+    num_intersec=tailleInter(l1,l2)
+    num_uni_1=size_not_in(l1,l2)
+    num_uni_2=size_not_in(l2,l1)
+    return min(num_intersec,num_uni_1,num_uni_2)
+
+def greedy_method(data):
+    num_photo = data[0]
+    dict_photo = data[1].copy()
+    result = []
+    slide_before = ""
+    score_total = 0
+    i = 0
+    while len(dict_photo) > 0 and i<num_photo+1:
+        i = i + 1
+        if i%100==0:
+            print(i)
+        min_score = 0
+        if slide_before == "":
+            slide_before = dict_photo[0]
+            result.append(slide_before)
+            del dict_photo[0]
+        else:
+            slide_before = slide_after.copy()
+            result.append(slide_after)
+        max_theorique = int(float(slide_before["num_tag"]) / 3.0)
+
+        for elt in random.sample(dict_photo.keys(), int(len(dict_photo)/10)):
+            slide_tmp = dict_photo[elt].copy()
+            tmp_score = score_two_list(slide_before["list_tag"], slide_tmp["list_tag"])
+            if tmp_score >= min_score:
+                slide_after = slide_tmp.copy()
+                min_score = tmp_score
+                id_supr = elt
+            if min_score == max_theorique:
+                break
+        score_total = score_total + min_score
+        del dict_photo[id_supr]
+
+    result.append(slide_after)
+    print(score_total)
+    return result
+
+print(greedy_method(data))
