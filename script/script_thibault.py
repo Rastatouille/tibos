@@ -30,3 +30,15 @@ def inter_not_in(l1,l2):
 
 def size_not_in(l1,l2):
     return len(inter_not_in(l1,l2))
+
+def inter(l1,l2):
+    return sorted(list(set(l1) & set(l2)))
+
+def tailleInter(l1,l2):
+    return len(inter(l1,l2))
+
+def score_two_list(l1,l2) :
+    num_intersec=tailleInter(l1,l2)
+    num_uni_1=size_not_in(l1,l2)
+    num_uni_2=size_not_in(l2,l1)
+    return min(num_intersec,num_uni_1,num_uni_2)
