@@ -5,7 +5,6 @@ def parsing(file_name) :
         for i, line in enumerate(f):
             element = line.replace("\n", "").strip()
             dict_line = dict()
-            print(element)
             if i == 0:
                 num_line = int(element)
                 tab_global = []
