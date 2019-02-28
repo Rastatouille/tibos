@@ -63,10 +63,11 @@ def greedy_method(data,tolerance):
         else:
             slide_before = slide_after.copy()
             result.append(slide_after)
-        max_theorique = int(float(slide_before["num_tag"]) / 3.0)
+        #max_theorique = int(float(slide_before["num_tag"]) / 3.0)
 
         for elt in dict_photo:
             slide_tmp = dict_photo[elt].copy()
+            max_theorique = int(float(slide_before["num_tag"]) + float(slide_tmp["num_tag"]) / 3.0)
             tmp_score = score_two_list(slide_before["list_tag"], slide_tmp["list_tag"])
             if tmp_score >= min_score:
                 slide_after = slide_tmp.copy()
