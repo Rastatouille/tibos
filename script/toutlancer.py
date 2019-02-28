@@ -25,8 +25,8 @@ def parsing(file_name) :
 
 #data=parsing("a_example.txt")
 
-data=parsing("b_lovely_landscapes.txt")
-#data=parsing("c_memorable_moments.txt")
+#data=parsing("b_lovely_landscapes.txt")
+data=parsing("c_memorable_moments.txt")
 #data=parsing("d_pet_pictures.txt")
 #data=parsing("e_shiny_selfies.txt")
 
@@ -50,13 +50,16 @@ def sortedV(data):
     li=taillesV(data)
     return sorted(li, key=lambda student: student[1])
 
+
 def doublets(data):
     ret=[]
     li=sortedV(data)
     while len(li)>1:
-        ret.append((li[0],li[-1]))
+        ret.append((li[0][0],li[-1][0]))
         li=li[1:-2]
     return ret
+
+
 def found_max_tag(data) :
     return max([x['num_tag'] for x in data[1]])
 
@@ -99,7 +102,7 @@ def greedy_method(data):
             result.append(slide_after)
         max_theorique = int(float(slide_before["num_tag"]) / 3.0)
 
-        for elt in random.sample(dict_photo.keys(), int(len(dict_photo)/10)):
+        for elt in random.sample(dict_photo.keys(), min(len(dict_photo),10)):
             slide_tmp = dict_photo[elt].copy()
             tmp_score = score_two_list(slide_before["list_tag"], slide_tmp["list_tag"])
             if tmp_score >= min_score:
@@ -115,4 +118,4 @@ def greedy_method(data):
     print(score_total)
     return result
 
-print(greedy_method(data))
+print(doublets(data))
