@@ -25,8 +25,8 @@ def parsing(file_name) :
 
 #data=parsing("a_example.txt")
 
-data=parsing("b_lovely_landscapes.txt")
-#data=parsing("c_memorable_moments.txt")
+#data=parsing("b_lovely_landscapes.txt")
+data=parsing("c_memorable_moments.txt")
 #data=parsing("d_pet_pictures.txt")
 #data=parsing("e_shiny_selfies.txt")
 
@@ -56,7 +56,7 @@ def doublets(data):
     li=sortedV(data)
     while len(li)>1:
         ret.append((li[0][0],li[-1][0]))
-        li=li[1:-2]
+        li=li[1:-1]
     return ret
 
 
@@ -131,4 +131,6 @@ def out_result_file(result,file_out):
         for elt in result :
             f.write(" ".join([str(x) for x in elt["id"]])+"\n")
 
-out_result_file(greedy_method(data),"premB")
+#out_result_file(greedy_method(data),"premB")
+print(len(doublets(data)))
+print(len(listVert(data)))
